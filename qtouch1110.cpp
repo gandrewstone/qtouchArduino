@@ -95,19 +95,7 @@ void Qt1110::init(uint8_t chipSelectPin)
 {
   chipSelect = chipSelectPin;
   pinMode(chipSelect,OUTPUT);
-  // We can't use SPI.begin() due to a bug in it which makes it inject a bit if in mode 3
-  //SPI.begin();
-  resume();
-  SPCR |= _BV(MSTR);
-  SPCR |= _BV(SPE);
-  pinMode(SCK, OUTPUT);
-  pinMode(MOSI, OUTPUT);
-  pinMode(SS, OUTPUT);
-    
-  digitalWrite(SCK, HIGH);
-  //digitalWrite(MOSI, LOW);
-  //digitalWrite(SS, HIGH);
-
+  
   resume();
 }
 
@@ -125,19 +113,8 @@ void Qt1110::init(uint8_t chipSelectPin,uint8_t numkeys, uint8_t guardkey)
 {
   chipSelect = chipSelectPin;
   pinMode(chipSelect,OUTPUT);
-  // We can't use SPI.begin() due to a bug in it which makes it inject a bit if in mode 3
-  //SPI.begin();
+  
   resume();
-  SPCR |= _BV(MSTR);
-  SPCR |= _BV(SPE);
-  pinMode(SCK, OUTPUT);
-  pinMode(MOSI, OUTPUT);
-  pinMode(SS, OUTPUT);
-    
-  digitalWrite(SCK, HIGH);
-  //digitalWrite(MOSI, LOW);
-  //digitalWrite(SS, HIGH);
-  resume();  
 
   reset();
   byte rev = validate();
@@ -375,9 +352,9 @@ void Qt1110::resume(void)
   SPI.setBitOrder(MSBFIRST);  // With these 8 clock pulses, a byte of data is transmitted from the master to the slave over MOSI, most significant bit (msb) first.
   SPI.setDataMode(SPI_MODE3);  //3);  // CPOL | CPHA
   SPI.setClockDivider(SPI_CLOCK_DIV32); // 16mhz/16 = 1mhz: The QT1110 SPI interface can operate at any SCK frequency up to 1.5 MHz.
-  //SPI.begin();  // writes SS high
-  SPCR |= _BV(MSTR);
-  SPCR |= _BV(SPE);
+  SPI.begin();  // writes SS high
+  //SPCR |= _BV(MSTR);
+  //SPCR |= _BV(SPE);
   digitalWrite(chipSelect,0);
 }
 

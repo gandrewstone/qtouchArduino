@@ -6,7 +6,7 @@ Arduino library for the Atmel QT1110 chip: http://www.atmel.com/images/doc9520.p
 This chip does capacitive sensing, allowing you to create up to 11 touch or proximity sensitive buttons.
 
 
-Use this revision of the library if you are on pre 1.0.4 Arduino.  See: http://code.google.com/p/arduino/issues/detail?id=888
+Use this revision of the library if you are on Arduino software version 1.0.4 or later.  See: http://code.google.com/p/arduino/issues/detail?id=888
 
 To install:
 
