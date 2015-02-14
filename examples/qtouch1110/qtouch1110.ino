@@ -56,13 +56,13 @@ void setup(void)
 }
 
 
-#define SPI_CHIP_SELECT_PIN 53
+#define SPI_CHIP_SELECT_PIN 10
 
 void loop(void)
 {
-  Qt1110 qt(SPI_CHIP_SELECT_PIN,11,0);  // 11 keys, no guard key
+  //Qt1110 qt(SPI_CHIP_SELECT_PIN,11,0);  // 11 keys, no guard key
 
-#if 0  // Alternate (verbose) initialization mechanism
+#if 1  // Alternate (verbose) initialization mechanism
   Qt1110 qt(SPI_CHIP_SELECT_PIN);
   qt.reset();
   byte rev = qt.validate();
@@ -89,6 +89,23 @@ void loop(void)
 	}
       delay(1); 
 
+      if ((cnt&0xff)==0)
+        {
+        uint16_t prox0 = qt.getProximity(1);
+        uint16_t prox1 = qt.getProximity(2);
+        DbgPrt("key 1: %d  Key 2: %d\n", prox0, prox1);
+        }
+        
+      if ((cnt&0x3ff)==0)
+        {        
+        DbgPrt("key: status:");
+        for (int i=0;i<11;i++)
+          {
+          uint8_t status = qt.getStatus(i);
+          DbgPrt("%2d: 0x%2x ", i, status);
+          }
+        DbgPrt("\n");
+        }
       // Periodically print chip's status
       if ((cnt&0x7ff)==0)
 	{
