@@ -62,16 +62,21 @@ public:
   void    reset(void);  
   uint8_t test(void);
 
-  boolean validate(void);
+  uint8_t validate(void);  // returns the chip revision
 
   // NOTE: all KEY numbers are 1 based (not zero based like in the QT1110 spec)
 
   // Return a bitmap 1=detected, 0=not detected.  So to see if key 3 is "pressed": if (getKeyState() & (1<<3)) { print("key 3 pressed"); }
-  uint16_t getAllKeys(void);
+  uint16_t getAllKeys(void);  
   // This will return a key number in detect.  But if multi-press it only returns the FIRST key pressed.  Use getAllKeys() for multidetect
   uint8_t getKey(void);
   //uint8_t getKey(uint8_t key);
 
+  // Returns a 16 bit value relating to how fast the cap sensor is draining
+  uint16_t getProximity(int key);
+
+  uint8_t getStatus(uint8_t key);
+  
   // Return a bitmap 1=detected, 0=not detected.  So to see if key 3 is "pressed": if (getKeyState() & (1<<3)) { print("key 3 pressed"); }
   uint16_t getAllErrors(void);
 

@@ -162,6 +162,21 @@ void Qt1110::writeSetup(uint8_t addr, uint8_t data)
   SPI.transfer(data);
 }
 
+uint16_t Qt1110::getProximity(int key)
+{
+  DevicePrecommDelay();
+  SPI.transfer(QTouch::SignalKeyN + key);
+  delayMicroseconds(QTouch::DeviceCommDelay);
+  uint16_t msb = SPI.transfer(0);
+  delayMicroseconds(QTouch::DeviceCommDelay);
+  uint16_t lsb = SPI.transfer(0);
+  DevicePrecommDelay();
+  SPI.transfer(QTouch::LastCommand);
+  //uint16_t cmd = SPI.transfer(0);
+  //return cmd;
+  return (msb<<8 | lsb);
+}
+
 QTouch::DeviceStatus Qt1110::getStatus(void)
 {
   union
@@ -190,6 +205,14 @@ void Qt1110::load(void)
   delay(150);  
 }
 
+uint8_t Qt1110::getStatus(uint8_t key)
+{  
+  DevicePrecommDelay();
+  SPI.transfer(QTouch::StatusKeyN + key);
+  delayMicroseconds(QTouch::DeviceCommDelay);
+  uint8_t ret = SPI.transfer(0);
+  return ret;
+}
 
 uint8_t Qt1110::getKey(void)
 {  
