@@ -1,13 +1,13 @@
-Qt1110 KEYWORD1
-QTouch KEYWORD1
-configure KEYWORD2
-pause KEYWORD2
-resume KEYWORD2
-reset KEYWORD2
-test KEYWORD2
-validate KEYWORD2
-getAllKeys KEYWORD2
-getKey KEYWORD2
-calibrate KEYWORD2
-getStatus KEYWORD2
+Qt1110	KEYWORD1
+QTouch	KEYWORD1
+configure	KEYWORD2
+pause	KEYWORD2
+resume	KEYWORD2
+reset	KEYWORD2
+test	KEYWORD2
+validate	KEYWORD2
+getAllKeys	KEYWORD2
+getKey	KEYWORD2
+calibrate	KEYWORD2
+getStatus	KEYWORD2
 
